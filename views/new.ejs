@@ -1,0 +1,35 @@
+<% include ./partials/header %>
+<div class="ui main text container segment">
+<form class="ui form" action="/" method="POST">
+    <div class="field">
+        <label>Title</label>
+        <input type="text" placeholder="Title" name="subject[title]">    
+    </div>
+    <div class="field">
+        <label>URL</label>
+        <input type="text" placeholder="http://" name="subject[url]">    
+    </div>
+    <div class="field">
+        <label>Body</label>
+        
+        <textarea placeholder="body" name="subject[body]"></textarea>
+    </div>
+    <div class="field">
+        <label>Year</label>
+        <input type="text" placeholder="year" name="subject[year]">
+    </div>
+    <div class="field">
+        <label>Branch</label>
+        <input type="text" placeholder="branch" name="subject[branch]">    
+    </div>
+    <input class="ui inverted orange button" type="submit">
+    
+    
+    
+    
+    
+    
+    
+</form>
+</div>
+<% include ./partials/footer %>

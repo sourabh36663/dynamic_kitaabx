@@ -1,0 +1,11 @@
+<% include ./partials/header %>
+
+<div class="ui main text container">
+<% subjects.forEach(function(subject){ %>
+    <div>
+        <a href="/<%= subject._id %>"><%= subject.title %></a>
+    </div>
+<% }) %>
+</div>
+
+<% include ./partials/footer %>
