@@ -9,8 +9,8 @@ var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-
+var redis   = require("redis");
+var redisStore = require('connect-redis')(session);
 
 mongoose.connect("mongodb://sourabh:sourabhb1@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
 
@@ -31,10 +31,12 @@ app.use(flash());
 
 //PASSPORT CONFIGURATION
 
-app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
-    resave: false,
-    saveUninitialized: false
+app.use(session({
+    secret: 'ssshhhhh',
+    // create new redis store.
+    store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
+    saveUninitialized: false,
+    resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
