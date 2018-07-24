@@ -9,8 +9,6 @@ var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
 var session = require('express-session');
-var redis   = require("redis");
-var redisStore = require('connect-redis')(session);
 
 mongoose.connect("mongodb://sourabh:sourabhb1@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
 
@@ -31,13 +29,31 @@ app.use(flash());
 
 //PASSPORT CONFIGURATION
 
+var RedisStore = require('connect-redis')(session);
+
+var redisClient = require('redis').createClient(process.env.REDIS_URL);
+
+var redisOptions = { 
+        client: redisClient, 
+        no_ready_check: true,
+        ttl: 600,
+        logErrors: true
+};
+
+var redisSessionStore = new RedisStore(redisOptions);
+
 app.use(session({
-    secret: 'ssshhhhh',
-    // create new redis store.
-    store: new redisStore({ host: 'localhost', port: 6379, ttl :  260}),
-    saveUninitialized: false,
-    resave: false
+    store: redisSessionStore,
+    secret: 'Some.Long.Series.of.Crazy.Words.and.Jumbled.letter.etc',
+    resave: true,       
+    saveUninitialized: true 
 }));
+
+
+
+
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
