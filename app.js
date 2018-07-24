@@ -30,7 +30,6 @@ app.use(flash());
 
 
 //PASSPORT CONFIGURATION
-app.set('trust proxy', 1);
 
 app.use(session({
 cookie:{
