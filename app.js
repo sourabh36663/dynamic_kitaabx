@@ -10,13 +10,15 @@ var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
 var Subject     =   require("./models/subject")
 
+mongoose.connect("mongodb://sourabhbagrecha:Mordern1234#@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
+
 
 //requiring routes
 var subjectRoutes = require("./routes/subjects.js"),
     indexRoutes   = require("./routes/index.js");
 
 //app config
-mongoose.connect("mongodb://localhost:27017/db_namet", { useNewUrlParser: true });     
+
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));

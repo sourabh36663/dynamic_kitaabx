@@ -4,24 +4,24 @@
     <form class="ui form" action="/subjects" method="POST">
         <div class="field">
             <label>Title</label>
-            <input type="text" placeholder="Title" name="subject[title]">    
+            <input type="text" placeholder="Title" name="subject[title]" required>    
         </div>
         <div class="field">
             <label>URL</label>
-            <input type="text" placeholder="http://" name="subject[url]">    
+            <input type="text" placeholder="http://" name="subject[url]" required>    
         </div>
         <div class="field">
             <label>Body</label>
             
-            <textarea placeholder="body" name="subject[body]"></textarea>
+            <textarea placeholder="body" name="subject[body]" required></textarea>
         </div>
         <div class="field">
             <label>Year</label>
-            <input type="text" placeholder="year" name="subject[year]">
+            <input type="number" placeholder="year" name="subject[year]" required>
         </div>
         <div class="field">
             <label>Branch</label>
-            <input type="text" placeholder="branch" name="subject[branch]">    
+            <input type="text" placeholder="branch" name="subject[branch]" required>    
         </div>
         <input class="ui inverted orange button" type="submit">
         
