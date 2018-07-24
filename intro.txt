@@ -7,8 +7,8 @@ Name        Path            HTTP Verb       Purpose                             
 index       /subjects        GET             List of all subjects in a particular year and branch
 New         /subjects/new    GET             Show new subject form 
 Create      /subjects        POST            Create a subject, then redirect somewhere
-Show        /subject/:id     GET             Show the subject and the material
-Edit      /subject/:id/edit  GET             Show edit form for that particular subject
-Update      /subject/:id     GET             Update that particular subject, then redirect somewhere
-Destroy     /subject/:id     DELETE          Delete a particular subject, then redirect somewhere
+Show        /subjects/:id     GET             Show the subject and the material
+Edit      /subjects/:id/edit  GET             Show edit form for that particular subject
+Update      /subjects/:id     GET             Update that particular subject, then redirect somewhere
+Destroy     /subjects/:id     DELETE          Delete a particular subject, then redirect somewhere
 =========================================================================================================================

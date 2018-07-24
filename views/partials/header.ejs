@@ -3,13 +3,41 @@
         <title>kitaabX</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
         <link rel="stylesheet" href="/stylesheets/index.css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <div class="ui fixed borderless inverted menu">
+        <div class="ui fixed borderless menu" style="color: #c6c5fc;background-color: #c6c5fc">
             <div class="ui container">
                 <div class="header"><a href="/" class="item">kitaabX</a></div>
-                <a href="/" class="item">Home</a>
-                <a href="/new" class="item">New Subject</a>
+                <a href="/subjects" class="item">Home</a>
+                <a href="/subjects/new" class="item">New Subject</a>
+                
+                <% if(!currentUser){ %>
+                    <a href="/login" class="item">Login</a>
+                    <a href="/register" class="item">Sign Up</a>
+                <% }else{ %>
+                    <a class="item" href="#">Signed In as <%= currentUser.fName %></a>
+                    <a href="/logout" class="item">Logout</a>
+                <%  } %>
+                
             </div>
-        </div>     
-   
+            
+        </div>
+        <% if(error && error.length>0){ %>
+            <div class="ui main container">
+                <div class="ui error message">
+                  <div class="header">
+                    <%= error %>
+                  </div>
+                </div>
+            </div>
+        <% } %>
+        <% if(success && success.length>0){ %>
+            <div class="ui main container">
+                <div class="ui success message">
+                  <div class="header">
+                    <%= success %>
+                  </div>
+                </div>
+            </div>
+        <% } %>

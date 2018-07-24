@@ -1,72 +1,61 @@
 var express     =    require("express");
 var app         =    express();
-var bodyParser  =    require("body-parser");
-var mongoose    =    require("mongoose");
+var methodOverride = require("method-override");
+var expressSanitizer =  require("express-sanitizer");
+var flash = require("connect-flash");
+var passport =      require("passport");
+var localStrategy = require("passport-local");
+var bodyParser  =   require("body-parser");
+var mongoose    =   require("mongoose");
+var User        =   require("./models/user");
+var Subject     =   require("./models/subject")
+
+
+//requiring routes
+var subjectRoutes = require("./routes/subjects.js"),
+    indexRoutes   = require("./routes/index.js");
 
 //app config
 mongoose.connect("mongodb://localhost:27017/db_namet", { useNewUrlParser: true });     
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer());
+app.use(methodOverride("_method"));
+app.use(flash());
 
 
-//Mongoose/model config
-var subjectSchema = new mongoose.Schema({
-    title: String,
-    url: String,
-    body: String,
-    created: {
-        type: Date,
-        default: Date.now
-    },
-    year: Number,
-    branch: String
-});
-var Subject = mongoose.model("Subject", subjectSchema);
-
-
-
-//RESTful routes
-
-//INDEX ROUTE
-app.get("/", function(req, res){
-    Subject.find({}, function(err, subjects){
-        if(err){
-        console.log("error");
-    }else{
-        res.render("index", {subjects: subjects});
-    }
-    });
-});
-
-//NEW ROUTE
-app.get("/new", function(req,res){
-    res.render("new");
+//PASSPORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "Once again Rusty wins cutest dog!",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(function(req, res, next){
+    res.locals.yearInApp = [1,2,3,4];
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    res.locals.info = req.flash("info");
+    res.locals.branchInApp = [
+        {sForm: "CS", title: "Computer Science"},
+        {sForm: "IT", title: "Information Technology"},
+        {sForm: "EX", title: "Electronics and Telecommunication"},
+        {sForm: "ME", title: "Mechanical"},
+        {sForm: "MX", title: "Mechatronics"},
+        {sForm: "CV", title: "Civil"}
+        ];
+    res.locals.currentUser = req.user;
+    next();
 });
 
-//CREATE ROUTE
-app.post("/",function(req, res){
-    Subject.create(req.body.subject, function(err, newSubject){
-        if(err){
-            console.log(err);
-            res.render("new");
-        }else{
-            res.redirect("/");
-        }
-        
-    });
-});
+app.use("/", indexRoutes);
+app.use("/subjects", subjectRoutes);
 
-//SHOW ROUTE
-app.get("/:id", function(req, res){
-  Subject.findById(req.params.id, function(err, foundSubject){
-      if(err){
-          res.redirect("/");
-      }else{
-          res.render("show", {subject: foundSubject});
-      }
-  });
-});
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("server running!");

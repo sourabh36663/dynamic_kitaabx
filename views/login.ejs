@@ -1,0 +1,19 @@
+<% include ./partials/header %>
+
+<div class="ui main container segment">
+    <h1 class="ui header huge">Login!</h1>
+    <form class="ui form" action="/login" method="POST">
+        <div class="field required">
+            <input class="ui" type="email" name="username" placeholder="Email Id" required>    
+        </div>
+        <div class="field required">
+            <input class="ui" type="password" name="password" placeholder="password">    
+        </div>
+        <div class="field">
+            <Button class="ui inverted blue button">Log me In!</Button>
+        </div>        
+    </form>
+    <p>Don't have an account? No worries! <br>  <a href="/register" class>Sign Up!</a> for kitaabx now</p>
+</div>
+
+<% include ./partials/footer %>

@@ -1,9 +1,17 @@
 <% include ./partials/header %>
-    <div class="ui main text container">
+    <div class="ui main text container segment">
         <div class="ui huge header"><%= subject.title%></div>
         <p><%= subject.url%></p>
         <p><%= subject.body%></p>
         <p><%= subject.branch%></p>
         <p><%= subject.year%></p>
-    </div>   
+        <% if(currentUser && subject.author.id.equals(currentUser._id)){ %>
+        <a class="ui orange basic button" href="/subjects/<%= subject._id %>/edit">EDIT</a>
+        <form style="display: inline" action="/subjects/<%= subject.id %>?_method=DELETE" method="POST">
+            <button class="ui red basic button">DELETE</button>
+        </form>
+        <% } %>
+        <p>Submitted by: <%= subject.author.name %></p>
+    </div>
+
 <% include ./partials/footer %>

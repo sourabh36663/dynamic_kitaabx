@@ -1,11 +1,22 @@
 <% include ./partials/header %>
 
 <div class="ui main text container">
-<% subjects.forEach(function(subject){ %>
-    <div>
-        <a href="/<%= subject._id %>"><%= subject.title %></a>
+    <div class="ui huge header">Welcome to kitaabx</div>
+    <div class="ui top attached ">
+        <div class="ui divided items">
+            <% subjects.forEach(function(subject){ %>
+                <a href="/subjects/<%= subject._id %>">
+                  <div class="ui items">
+                    <div class="ui header segment"> <%= subject.title %></div>
+                  </div>
+                </a>
+            <% }) %>
+        </div>    
     </div>
-<% }) %>
+</div>
+
+<div class="ui main text container">
+
 </div>
 
 <% include ./partials/footer %>

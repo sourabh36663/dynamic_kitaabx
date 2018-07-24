@@ -1,0 +1,33 @@
+<% include ./partials/header %>
+    <script>
+        $(document).ready(function(){
+            $("#uname").change(function(e){
+                console.log(e.target.value);
+            });
+        });
+    </script> 
+
+<div class="ui main container segment">
+    <h1 class="ui header huge">Sign Up!</h1>
+    <form class="ui form" action="/register" method="POST">
+        <div class="two fields">
+            <div class="field">
+                <input type="text" name="User[fName]" placeholder="First Name" required>    
+            </div>
+            <div class="field">
+                <input type="text" name="User[lName]" placeholder="Last Name" required>
+            </div>            
+        </div>
+        <div class="field">
+            <input id="uname" type="email" name="User[username]" placeholder="Email Id" required>    
+        </div>
+        <div class="field">
+            <input type="password" name="password" placeholder="password">
+        </div>
+        <div class="field">
+            <Button class="ui inverted violet button">Sign me Up!</Button>    
+        </div>        
+    </form>
+</div>
+
+<% include ./partials/footer %>
