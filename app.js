@@ -9,28 +9,8 @@ var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
 var session = require('express-session');
-var MongoDBStore = require('connect-mongodb-session')(session);
+var RedisStore = require('connect-redis')(session);
 
-
-var store = new MongoDBStore(
-  {
-    uri: 'mongodb://bad.host:27000/connect_mongodb_session_test?connectTimeoutMS=10',
-    databaseName: 'connect_mongodb_session_test',
-    collection: 'mySessions'
-  },
-  function(error) {
-    // Should have gotten an error
-  });
-  
-app.use(session({
-  secret: 'This is a secret',
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-  },
-  store: store,
-  resave: true,
-  saveUninitialized: true
-}));
 
 mongoose.connect("mongodb://sourabh:sourabhb1@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
 
@@ -50,10 +30,17 @@ app.use(flash());
 
 
 //PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
-    resave: false,
-    saveUninitialized: false
+app.set('trust proxy', 1);
+
+app.use(session({
+cookie:{
+    secure: true,
+    maxAge:60000
+       },
+store: new RedisStore(),
+secret: 'secret',
+saveUninitialized: true,
+resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
