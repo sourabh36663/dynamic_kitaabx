@@ -8,7 +8,6 @@ var localStrategy = require("passport-local");
 var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
-var Subject     =   require("./models/subject")
 
 mongoose.connect("mongodb://sourabhbagrecha:Mordern1234#@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
 
