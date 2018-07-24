@@ -8,6 +8,29 @@ var localStrategy = require("passport-local");
 var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
+var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+
+var store = new MongoDBStore(
+  {
+    uri: 'mongodb://bad.host:27000/connect_mongodb_session_test?connectTimeoutMS=10',
+    databaseName: 'connect_mongodb_session_test',
+    collection: 'mySessions'
+  },
+  function(error) {
+    // Should have gotten an error
+  });
+  
+app.use(session({
+  secret: 'This is a secret',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+  },
+  store: store,
+  resave: true,
+  saveUninitialized: true
+}));
 
 mongoose.connect("mongodb://sourabh:sourabhb1@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
 
