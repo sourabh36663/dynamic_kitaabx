@@ -89,7 +89,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    //req.flash("error", "You need to be logged in to do that!");
+    req.flash("error", "You need to be logged in to do that!");
     res.redirect("/login");
 }
 
@@ -98,14 +98,14 @@ function checkSubjectOwnership(req, res, next){
   if(req.isAuthenticated()){
       Subject.findById(req.params.id, function(err, foundSubject){
       if(err){
-          //req.flash("error", "Not Found!");
+          req.flash("error", "Not Found!");
           res.redirect("back");
       }else{
         // does user own the subject
           if(foundSubject.author.id.equals(req.user._id)){
               next();
           } else{
-              //req.flash("error", "You don't have permission to do that");
+              req.flash("error", "You don't have permission to do that");
               res.redirect("back");
           }
       }  
