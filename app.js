@@ -9,9 +9,14 @@ var bodyParser  =   require("body-parser");
 var mongoose    =   require("mongoose");
 var User        =   require("./models/user");
 var session = require('express-session');
-var RedisStore = require ( 'connect-redis' ) ( express ),
-      sessionStore = new RedisStore (),
-      app = express.createServer ();
+var cookieParser = require('cookie-parser');
+var MemoryStore = require('session-memory-store')(session);
+var options;
+
+options.expires = 60*60*12;
+options.checkperiod = 60*10;
+
+// for express 4.0+
 
 
 
@@ -33,14 +38,15 @@ app.use(flash());
 
 
 //PASSPORT CONFIGURATION
+app.use(cookieParser());
 
-app.configure ( function () {
+app.use(session({
+  name: 'JSESSION',
+  secret: 'my secret',
+  store: new MemoryStore(options)
+}));
 
-   app.use ( express.cookieParser () );
-   app.use ( express.session ( {
-    secret: "keyboard cat", store: sessionStore, key: 'hello.sid'
-   }));
-});
+
 
 
 
