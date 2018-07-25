@@ -40,7 +40,9 @@ app.use(cookieParser());
 app.use(session({
   name: 'JSESSION',
   secret: 'my secret',
-  store: new MemoryStore(options.expires = 60*60*12, options.checkperiod = 60*10)
+  store: new MemoryStore(),
+  saveUninitialized: true,
+  resave: true
 }));
 
 
