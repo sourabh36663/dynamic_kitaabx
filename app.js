@@ -13,9 +13,6 @@ var cookieParser = require('cookie-parser');
 var MemoryStore = require('session-memory-store')(session);
 var options;
 
-options.expires = 60*60*12;
-options.checkperiod = 60*10;
-
 // for express 4.0+
 
 
@@ -43,14 +40,8 @@ app.use(cookieParser());
 app.use(session({
   name: 'JSESSION',
   secret: 'my secret',
-  store: new MemoryStore(options)
+  store: new MemoryStore(options.expires = 60*60*12, options.checkperiod = 60*10)
 }));
-
-
-
-
-
-
 
 
 app.use(passport.initialize());
