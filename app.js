@@ -39,7 +39,8 @@ app.configure ( function () {
    app.use ( express.cookieParser () );
    app.use ( express.session ( {
     secret: "keyboard cat", store: sessionStore, key: 'hello.sid'
-   } ) );
+   }));
+});
 
 
 
