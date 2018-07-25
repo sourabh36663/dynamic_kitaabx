@@ -11,7 +11,6 @@ var User        =   require("./models/user");
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var MemoryStore = require('session-memory-store')(session);
-var options;
 
 // for express 4.0+
 
@@ -40,7 +39,7 @@ app.use(cookieParser());
 app.use(session({
   name: 'JSESSION',
   secret: 'my secret',
-  store: new MemoryStore(),
+  store: new MemoryStore({checkPeriod: 86400000}),
   saveUninitialized: true,
   resave: true
 }));
