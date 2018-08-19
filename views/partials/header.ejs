@@ -6,12 +6,12 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <div class="ui fixed borderless menu" style="color: #c6c5fc;background-color: #c6c5fc">
+        <div class="ui fixed borderless inverted menu">
             <div class="ui container">
                 <div class="header"><a href="/" class="item">kitaabX</a></div>
                 <a href="/subjects" class="item">Home</a>
                 <a href="/subjects/new" class="item">New Subject</a>
-                
+                <a href="/meettheteam" class="item">Meet The Team</a>
                 <% if(!currentUser){ %>
                     <a href="/login" class="item">Login</a>
                     <a href="/register" class="item">Sign Up</a>
@@ -23,6 +23,7 @@
             </div>
             
         </div>
+
         <% if(error && error.length>0){ %>
             <div class="ui main container">
                 <div class="ui error message">
