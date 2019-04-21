@@ -16,7 +16,7 @@ var MemoryStore = require('session-memory-store')(session);
 
 
 
-mongoose.connect("mongodb://sourabh:sourabhb1@ds145881.mlab.com:45881/kitaabxfirst", { useNewUrlParser: true });
+mongoose.connect("mongodb://********:**********@GH*********.mlab.com:*********/******", { useNewUrlParser: true });
 
 
 //requiring routes
